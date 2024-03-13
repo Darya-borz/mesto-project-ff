@@ -2,7 +2,7 @@
 // @todo: DOM узлы
 import '../pages/index.css';
 import { creatCard, deleteCard, toggleLike } from "./card.js";
-import { openPopupCard, openPopupProfileEdit, openPopup, closePopup } from "./modal.js";
+import { openPopup, closePopup } from "./modal.js";
 import { initialCards } from './cards.js';
 const cardTemplate = document.querySelector('#card-template').content;
 const placesList = document.querySelector('.places__list');
@@ -19,7 +19,8 @@ const currentName = document.querySelector('.profile__title');
 const currentJob = document.querySelector('.profile__description');
 const cardName=document.querySelector('.popup__input_type_card-name');
 const cardLink = document.querySelector('.popup__input_type_url');
-
+const imagePopup = document.querySelector('.popup__image');
+const popupImageName = document.querySelector('.popup__caption');
 popupProfileAdd.classList.add('popup_is-animated');
 popupProfileEdit.classList.add('popup_is-animated');
 popupImage.classList.add('popup_is-animated');
@@ -44,12 +45,23 @@ function handleFormCard (evt){
     creatNewCardForm.reset();
 }
 
+function openPopupCard(evt) {
+    
+    openPopup(popupImage);
+    imagePopup.src=evt.link;
+    imagePopup.alt=evt.name;
+    popupImageName.textContent=evt.name;
+}
+
+function openPopupProfileEdit (item) {
+    nameInput.value = currentName.textContent;
+    jobInput.value = currentJob.textContent;
+    openPopup(item);
+}
+
 // @todo: Вывести карточки на страницу
-
-
-
 initialCards.forEach((item) => {
-    placesList.append(creatCard(item, deleteCard, toggleLike));
+    placesList.append(creatCard(item, deleteCard, toggleLike, openPopupCard));
 });
 
 profileEditButton.addEventListener("click", () => {openPopupProfileEdit(popupProfileEdit);});

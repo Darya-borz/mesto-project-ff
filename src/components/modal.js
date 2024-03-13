@@ -20,8 +20,7 @@ function openPopup(item){
 }
 
 function closePopupOverlay(evt){
-    const openedPopup = document.querySelector('.popup_is-opened');
-    if (evt.target === openedPopup){
+    if (evt.target.classList.contains('popup_is-opened')){
         closePopup();
     }
 }
@@ -42,29 +41,6 @@ function closePopup(){
     document.removeEventListener("keydown", handleEscape);
     openedPopup.removeEventListener("click",closePopupOverlay);
 }
-
-//@todo: функция открытия popup картинки
-export function openPopupCard(evt) {
-    
-    openPopup(popupImage);
-    const imagePopup = document.querySelector('.popup__image');
-    const popupImageName = document.querySelector('.popup__caption');
-    imagePopup.src=evt.link;
-    imagePopup.alt=evt.name;
-    popupImageName.textContent=evt.name;
-
-    //popupImage.style.backgroundColor = "rgba(0, 0, 0, .9)";
-}
-
-//@todo: функция открытия popup профиля
-export function openPopupProfileEdit (item) {
-    nameInput.value = currentName.textContent;
-    jobInput.value = currentJob.textContent;
-    openPopup(item);
-}
-//@todo: обработка формы
-
-
 export {openPopup, closePopup};
 
 

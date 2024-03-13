@@ -1,7 +1,7 @@
 const cardTemplate = document.querySelector('#card-template').content;
-import { openPopupCard } from "./modal.js";
+
 // @todo: Функция создания карточки
-export function creatCard(card, deleteCard, toggleLike) {
+export function creatCard(card, deleteCard, toggleLike, openPopupCard) {
     const itemCard = cardTemplate.querySelector('.card').cloneNode(true);
     const cardImage = itemCard.querySelector('.card__image');
     const cardImageTitle = itemCard.querySelector('.card__title');
