@@ -7,6 +7,7 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
+  
 }
 
 @media screen and (max-width: 740px) {
@@ -19,4 +20,21 @@
   .profile__image {
     margin-right: 0;
   }
+}
+
+.button_profile__image {
+  
+  width: 120px;
+  height: 120px;
+  background-color: transparent;
+  border: 0px;
+  margin-right: 40px;
+  cursor: pointer;
+  padding: 0;
+  opacity: 5;
+}
+
+.button_profile__image:hover.profile__image::after {
+  background:  rgba(86, 192, 30, 0.8) url('../../../images/avatar.svg') center no-repeat;
+  border: 10px solid red;
 }
