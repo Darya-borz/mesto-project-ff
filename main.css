@@ -634,14 +634,28 @@ template {
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
-  background-image: url(6666407ac3aa5af1d5de.jpg);
+ 
   cursor: pointer;
   border: 0px;
 }
 
-.profile__image:hover {
-  background:  rgba(86, 192, 30, 0.8) url(a086f758840ae814ecde.svg) center no-repeat;
+.profile__image:hover::before {
+  content: '';
   position: absolute;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile__image-edit{
+  display: none;
+  width: 26px;
+  height: 26px;
+  translate: 47px -73px;
+}
+
+.profile__image:hover .profile__image-edit {
+  display: block;
 }
 
 @media screen and (max-width: 740px) {
@@ -657,20 +671,18 @@ template {
 }
 
 .button_profile__image {
-  
+  border: 0px;
   width: 120px;
   height: 120px;
   background-color: transparent;
   border: 0px;
   margin-right: 40px;
-  
   padding: 0;
-  opacity: 5;
+
 }
 
-.button_profile__image:hover.profile__image::after {
-  
-  border: 10px solid red;
+.button_profile__image:hover{
+  border: 0px;
 }
 
 .profile {
