@@ -7,7 +7,28 @@
   background-size: cover;
   background-position: center;
   margin: 0 29px 0 0;
-  
+ 
+  cursor: pointer;
+  border: 0px;
+}
+
+.profile__image:hover::before {
+  content: '';
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.profile__image-edit{
+  display: none;
+  width: 26px;
+  height: 26px;
+  translate: 47px -73px;
+}
+
+.profile__image:hover .profile__image-edit {
+  display: block;
 }
 
 @media screen and (max-width: 740px) {
@@ -23,18 +44,16 @@
 }
 
 .button_profile__image {
-  
+  border: 0px;
   width: 120px;
   height: 120px;
   background-color: transparent;
   border: 0px;
   margin-right: 40px;
-  cursor: pointer;
   padding: 0;
-  opacity: 5;
+
 }
 
-.button_profile__image:hover.profile__image::after {
-  background:  rgba(86, 192, 30, 0.8) url('../../../images/avatar.svg') center no-repeat;
-  border: 10px solid red;
+.button_profile__image:hover{
+  border: 0px;
 }

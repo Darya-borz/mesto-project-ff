@@ -48,8 +48,6 @@ function toggleLike(likebutton, cardId, countLike) {
         };
     }
     
-
-
 //@todo: Функция удаления карточки
 function deleteCard(item, card_id) {
     item.remove(); 

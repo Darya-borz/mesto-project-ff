@@ -48,6 +48,27 @@ export function sendUserData (userName, userAbout){
     })
 }
 
+export function sendAvatar (avatarLink){
+  return fetch('https://nomoreparties.co/v1/wff-cohort-11/users/me/avatar', {
+    method: 'PATCH',
+    headers: {
+      authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: avatarLink
+    })
+  })
+  .then ((res) => {
+    if (res.ok){
+      return res.json();
+    }
+  })
+  .catch((err) => {
+      console.log(err);
+  })
+}
+
 export function sendDataCard(cardName, cardLink) {
   return fetch('https://nomoreparties.co/v1/wff-cohort-11/cards', {
     method: 'POST',

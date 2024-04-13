@@ -12,7 +12,6 @@ const popupImage = document.querySelector('.popup_type_image');
 function openPopup(item){
     item.classList.add("popup_is-opened");
     const popupCloseButton = item.querySelector('.popup__close');
-
     popupCloseButton.addEventListener("click", closePopup);
     document.addEventListener("keydown", handleEscape);
     item.addEventListener("click",closePopupOverlay);
