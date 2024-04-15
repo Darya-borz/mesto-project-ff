@@ -1,13 +1,3 @@
-const popupProfileEdit = document.querySelector('.popup_type_edit');
-const profileForm = popupProfileEdit.querySelector('.popup__form');
-const nameInput = profileForm.querySelector('.popup__input_type_name') 
-const jobInput = profileForm.querySelector('.popup__input_type_description')  
-const currentName = document.querySelector('.profile__title');
-const currentJob = document.querySelector('.profile__description');
-const popupImage = document.querySelector('.popup_type_image');
-
-
-
 //@todo: функция открытия всех popup
 function openPopup(item){
     item.classList.add("popup_is-opened");

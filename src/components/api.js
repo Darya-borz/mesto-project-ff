@@ -1,116 +1,117 @@
+import { checkResponse } from "./utils";
+
+const config = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/wff-cohort-11',
+  headers: {
+    authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0',
+    contentType: 'application/json',
+  },
+};
+
 export function getCard() {
     //данные профиля
     const getUserData = () => {
-      return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-11/users/me', {
+      return fetch(config.baseUrl + '/users/me', {
         headers: {
-          authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0'
+          authorization: config.headers.authorization
         }
       })
-        .then((res) =>  res.json());
+      .then((res) =>  {
+          if (res.ok) {
+              return res.json();
+          }
+          return Promise.reject(`Ошибка ${res.status}`);
+      });
     }
     //выгрузка карточек
     const getCardsData = () => {
-      return fetch('https://mesto.nomoreparties.co/v1/wff-cohort-11/cards', {
+      return fetch(config.baseUrl + '/cards', {
         headers: {
-          authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0'
+          authorization: config.headers.authorization
         }
       })
-      .then ((res) => res.json())
+      .then((res) =>  {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка ${res.status}`);
+      });
     }
     //информация о карточках и профиле
     return Promise.all([getUserData(), getCardsData()])
     .then(([userData, cardsData]) => {
         return {userData, cardsData}
     })
-    .catch (err => console.log(err));
 };
 
 
 export function sendUserData (userName, userAbout){
-  return fetch('https://nomoreparties.co/v1/wff-cohort-11/users/me', {
+  return fetch(config.baseUrl + '/users/me', {
     method: 'PATCH',
     headers: {
-      authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0',
-      'Content-Type': 'application/json'
+      authorization: config.headers.authorization,
+      'Content-Type': config.headers.contentType
     },
     body: JSON.stringify({
       name: userName,
       about: userAbout
     })
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    }) 
-    .catch((err) => {
-      console.log(err);
-    })
+    .then(checkResponse) 
 }
 
 export function sendAvatar (avatarLink){
-  return fetch('https://nomoreparties.co/v1/wff-cohort-11/users/me/avatar', {
+  return fetch(config.baseUrl + '/users/me/avatar', {
     method: 'PATCH',
     headers: {
-      authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0',
-      'Content-Type': 'application/json'
+      authorization: config.headers.authorization,
+      'Content-Type': config.headers.contentType
     },
     body: JSON.stringify({
       avatar: avatarLink
     })
   })
-  .then ((res) => {
-    if (res.ok){
-      return res.json();
-    }
-  })
-  .catch((err) => {
-      console.log(err);
-  })
+  .then(checkResponse) 
 }
 
 export function sendDataCard(cardName, cardLink) {
-  return fetch('https://nomoreparties.co/v1/wff-cohort-11/cards', {
+  return fetch(config.baseUrl + '/cards', {
     method: 'POST',
     headers: {
-      authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0',
-      'Content-Type': 'application/json'
+      authorization: config.headers.authorization,
+      'Content-Type': config.headers.contentType
     },
     body: JSON.stringify({
       name: cardName,
       link: cardLink
     })
   })
-  .then((res) => {
-    if (res.ok){
-      return res.json();
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+  .then(checkResponse) 
 }
 export function like(cardId){
-  return fetch('https://nomoreparties.co/v1/wff-cohort-11/cards/likes/'+cardId, {
+  return fetch(config.baseUrl + '/cards/likes/'+cardId, {
   method: 'PUT',
   headers: {
-    authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0'
+    authorization: config.headers.authorization
   }})
-  .then((res) => {
-      return res.json();
-    }
-  )
+  .then(checkResponse) 
 }
 
 export function deleteLike (cardId){
-  return fetch('https://nomoreparties.co/v1/wff-cohort-11/cards/likes/'+cardId, {
+  return fetch(config.baseUrl + '/cards/likes/'+cardId, {
   method: 'DELETE',
   headers: {
-    authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0'
+    authorization: config.headers.authorization
   }})
-  .then ((res) => {
-    return res.json();
-  })
+  .then(checkResponse) 
 }
 
+export function deleteCards(card_id) {
+  return fetch(config.baseUrl + '/cards/'+ card_id, {
+    method: 'DELETE',
+    headers: {
+        authorization: config.headers.authorization,
+
+    }});
+}
 

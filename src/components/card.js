@@ -1,4 +1,4 @@
-import { like, deleteLike } from "./api";
+import { like, deleteLike, deleteCards } from "./api";
 const cardTemplate = document.querySelector('#card-template').content;
 
 // @todo: Функция создания карточки
@@ -50,14 +50,12 @@ function toggleLike(likebutton, cardId, countLike) {
     
 //@todo: Функция удаления карточки
 function deleteCard(item, card_id) {
-    item.remove(); 
-    fetch('https://nomoreparties.co/v1/wff-cohort-11/cards/'+ card_id, {
-    method: 'DELETE',
-    headers: {
-        authorization: 'd655b118-8b88-4edf-be5c-c170c9e072d0',
-
-    }});
-    
+    deleteCards(card_id)
+    .then ((res) => {
+        if (res.ok) {
+            item.remove(); 
+        }
+    })
 }
 
 export {toggleLike, deleteCard};

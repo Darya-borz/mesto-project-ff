@@ -30,6 +30,7 @@ const popupAvatarButton = document.querySelector('.profile__image');
 const buttonPfofileForm = profileForm.querySelector('.popup__button');
 const buttonCardForm = creatNewCardForm.querySelector('.popup__button');
 const popupAvatar = document.querySelector('.popup_type_foto');
+const buttonAvatarForm = popupAvatar.querySelector('.popup__button');
 const avatarForm = popupAvatar.querySelector('.popup__form');
 const avatarLinkInput = popupAvatar.querySelector('.popup__input_avatar');
 const profileImage = profileAvatar.querySelector('.profile__image');
@@ -40,7 +41,9 @@ const validationConfig = {
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_inactive',
   inputErrorClass: 'form__input_type_error',
-  errorClass: 'popup__error_visible'
+  errorClass: 'popup__error_visible',
+  inputErrorActive: 'form__input-error_active',
+  formImputError :'.form__input-error'
 };
 let userId = '';
 
@@ -54,9 +57,14 @@ function handleProfileFormSubmit(evt) {
   .then((data) => {
     currentName.textContent = data.name;
     currentJob.textContent = data.about;
-  });
-  closePopup(popupProfileEdit);
-  buttonPfofileForm.textContent = "Сохраниенить"
+    closePopup(popupProfileEdit);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally ((evt) => {
+    buttonPfofileForm.textContent = "Сохранить";
+  })
 }
 
 function handleFormCard(evt) {
@@ -65,20 +73,32 @@ function handleFormCard(evt) {
   sendDataCard(cardName.value,cardLink.value)
   .then((data) => {
     placesList.prepend(creatCard(data, deleteCard, toggleLike, openPopupCard, userId));
+    closePopup(popupProfileAdd);
+    creatNewCardForm.reset();
   })
-  closePopup(popupProfileAdd);
-  buttonCardForm.textContent = "Сохраниенить"
-  creatNewCardForm.reset();
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally ((evt) => {
+    buttonCardForm.textContent = "Сохранить";
+  })
 }
 
 function handleFormAvatar(evt) {
+  buttonAvatarForm.textContent = "Сохраниение...";
   evt.preventDefault();
   sendAvatar(avatarLinkInput.value)
   .then ((data) => {
     profileImage.src = data.avatar;
+    closePopup(popupAvatar);
+    avatarForm.reset();
   })
-  closePopup(popupAvatar);
-  avatarForm.reset();
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally ((evt) => {
+    buttonAvatarForm.textContent = "Сохранить";
+  })
 }
 
 function openPopupCard(evt) {
@@ -94,9 +114,15 @@ function openPopupProfileEdit(item) {
   clearValidation(profileForm, validationConfig);
   openPopup(item);
 }
-popupAvatarButton.addEventListener("click", () => {openPopup(popupAvatar)});
+
+function openPopupInputForm (popup, form){
+  clearValidation(form, validationConfig);
+  openPopup(popup);
+}
+
+popupAvatarButton.addEventListener("click", () => {openPopupInputForm(popupAvatar, avatarForm)});
 profileEditButton.addEventListener("click", () => { openPopupProfileEdit(popupProfileEdit); });
-profileAddButton.addEventListener("click", () => { openPopup(popupProfileAdd); });
+profileAddButton.addEventListener("click", () => { openPopupInputForm(popupProfileAdd, creatNewCardForm); });
 
 // он будет следить за событием “submit” - «отправка»
 
