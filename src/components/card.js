@@ -38,6 +38,9 @@ function toggleLike(likebutton, cardId, countLike) {
             countLike.textContent = data.likes.length;
             likebutton.classList.toggle('card__like-button_is-active');
         })
+        .catch((err) => {
+            console.log(err);
+        })
     }
     else {
         deleteLike(cardId)
@@ -45,17 +48,22 @@ function toggleLike(likebutton, cardId, countLike) {
             countLike.textContent = data.likes.length;
             likebutton.classList.toggle('card__like-button_is-active');
         })
+        .catch((err) => {
+            console.log(err);
+        })
         };
     }
     
 //@todo: Функция удаления карточки
 function deleteCard(item, card_id) {
     deleteCards(card_id)
-    .then ((res) => {
-        if (res.ok) {
-            item.remove(); 
-        }
+    .catch((err) => {
+        console.log(err);
     })
+    .finally((evt) =>{
+        item.remove();
+    })
+    
 }
 
 export {toggleLike, deleteCard};

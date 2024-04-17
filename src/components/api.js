@@ -1,4 +1,4 @@
-import { checkResponse } from "./utils";
+import { checkResponse, checkResponseUserCard } from "./utils";
 
 const config = {
   baseUrl: 'https://mesto.nomoreparties.co/v1/wff-cohort-11',
@@ -16,12 +16,7 @@ export function getCard() {
           authorization: config.headers.authorization
         }
       })
-      .then((res) =>  {
-          if (res.ok) {
-              return res.json();
-          }
-          return Promise.reject(`Ошибка ${res.status}`);
-      });
+      .then(checkResponseUserCard);
     }
     //выгрузка карточек
     const getCardsData = () => {
@@ -30,12 +25,7 @@ export function getCard() {
           authorization: config.headers.authorization
         }
       })
-      .then((res) =>  {
-        if (res.ok) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка ${res.status}`);
-      });
+      .then(checkResponseUserCard);
     }
     //информация о карточках и профиле
     return Promise.all([getUserData(), getCardsData()])
@@ -56,8 +46,8 @@ export function sendUserData (userName, userAbout){
       name: userName,
       about: userAbout
     })
-  })
-    .then(checkResponse) 
+    })
+  .then(checkResponse);
 }
 
 export function sendAvatar (avatarLink){
@@ -71,7 +61,7 @@ export function sendAvatar (avatarLink){
       avatar: avatarLink
     })
   })
-  .then(checkResponse) 
+  .then(checkResponse); 
 }
 
 export function sendDataCard(cardName, cardLink) {
@@ -86,7 +76,7 @@ export function sendDataCard(cardName, cardLink) {
       link: cardLink
     })
   })
-  .then(checkResponse) 
+  .then(checkResponse);
 }
 export function like(cardId){
   return fetch(config.baseUrl + '/cards/likes/'+cardId, {
@@ -94,7 +84,7 @@ export function like(cardId){
   headers: {
     authorization: config.headers.authorization
   }})
-  .then(checkResponse) 
+  .then(checkResponse);
 }
 
 export function deleteLike (cardId){
@@ -112,6 +102,7 @@ export function deleteCards(card_id) {
     headers: {
         authorization: config.headers.authorization,
 
-    }});
+    }})
+  .then(checkResponse)
 }
 
