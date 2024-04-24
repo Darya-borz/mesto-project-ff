@@ -57,13 +57,12 @@ function toggleLike(likebutton, cardId, countLike) {
 //@todo: Функция удаления карточки
 function deleteCard(item, card_id) {
     deleteCards(card_id)
+    .then((data) =>{
+        item.remove();
+    })
     .catch((err) => {
         console.log(err);
     })
-    .finally((evt) =>{
-        item.remove();
-    })
-    
 }
 
 export {toggleLike, deleteCard};
